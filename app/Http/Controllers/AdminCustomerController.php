@@ -9,7 +9,8 @@ class AdminCustomerController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $customers = User::where('is_admin', 0)->get();
+        return view('admin.dashboard', ['customers' => $customers]);
     }
 
     public function destroy(User $user)

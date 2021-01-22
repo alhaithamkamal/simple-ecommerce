@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminCustomerController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubscriptionController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 
@@ -22,8 +25,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth', 'active'])->group(function() {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('customer');
-    
+    Route::middleware('customer')->group(function(){
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+        Route::get('/subscription/create', [SubscriptionController::class, 'index'])->name('subscription.create');
+        Route::post('order-post', [SubscriptionController::class, 'orderPost'])->name('order-post');
+    });
+
     Route::middleware('admin')->group(function() {
         Route::get('/admin/dashboard', [AdminCustomerController::class, 'index'])->name('admin.index');
         Route::delete('/admin/remove_customer/{user}', [AdminCustomerController::class, 'destroy'])->name('admin.destroy');

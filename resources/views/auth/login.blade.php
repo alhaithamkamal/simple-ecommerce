@@ -6,7 +6,14 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
+                @if (session()->has('inActive'))
+                <div class="alert alert-warning" role="alert">
+                    {{ session()->get('inActive') }}
+                </div>
+                @endif
+                <!-- @foreach($errors->getMessages() as $key => $message)
+                    {{$key}} = {{$message}}
+                @endforeach -->
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

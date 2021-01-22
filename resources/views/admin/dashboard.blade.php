@@ -59,7 +59,7 @@
                                                         @endif
                                                         </div>
                                                         <div class="col">
-                                                        <form action="{{route('admin.destroy', ['user' => $customer->id])}}" method="POST">
+                                                        <form class="delete" action="{{route('admin.destroy', ['user' => $customer->id])}}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger">X</button>
@@ -148,3 +148,4 @@
                 </footer>
             </div>
             @endsection
+            
